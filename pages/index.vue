@@ -1,13 +1,36 @@
 <template>
-  <h1>Events</h1>
+  <div>
+    <h1>Events</h1>
+    <EventCard v-for="event in events" :key="event.id" :event="event" />
+  </div>
 </template>
 
 <script>
+import EventCard from '~/components/EventCard.vue'
+
 export default {
+  components: {
+    EventCard,
+  },
+  asyncData({ $axios, error }) {
+    return $axios
+      .get('http://localhost:3000/events')
+      .then((response) => {
+        return {
+          events: response.data,
+        }
+      })
+      .catch((e) => {
+        error({
+          statusCode: 503,
+          message: 'Unable to fetch events at this time, please try again',
+        })
+      })
+  },
   head() {
     return {
       title: 'Event Listing',
     }
-  }
+  },
 }
 </script>
