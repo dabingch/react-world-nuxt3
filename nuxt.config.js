@@ -29,6 +29,9 @@ export default {
     '@nuxtjs/eslint-module',
   ],
 
+  // Customize the progress-bar color
+  loading: { color: '#39b982' },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
