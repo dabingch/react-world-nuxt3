@@ -1,3 +1,5 @@
+import EventService from './services/EventService.js'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -12,6 +14,16 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
+
+  generate: {
+    routes: () => {
+      return EventService.getEvents().then((response) => {
+        return response.data.map((event) => {
+          return '/event/' + event.id
+        })
+      })
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
